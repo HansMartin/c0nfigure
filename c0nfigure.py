@@ -57,10 +57,10 @@ def symlink(source, dest):
 
             if e.errno == 17: # file already existent
                 if BACKUP:
-                    mkBackup(dest):
-
+                    mkBackup(dest)
+                # need to delete the file and symlink again
+                os.remove(dest)
                 symlink(source, dest)
-                return 1
 
             if DEBUG:
                     perror("Failed to Symlink %s to %s" %(source, dest))
