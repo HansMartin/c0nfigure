@@ -56,9 +56,11 @@ def symlink(source, dest):
 	except Exception as e:
 
             if e.errno == 17: # file already existent
-                if BACKUP and mkBackup(dest):
-                    symlink(source, dest)
-                    return 1
+                if BACKUP:
+                    mkBackup(dest):
+
+                symlink(source, dest)
+                return 1
 
             if DEBUG:
                     perror("Failed to Symlink %s to %s" %(source, dest))
@@ -131,7 +133,7 @@ for i in range(1, len(sys.argv)):
 
         elif sys.argv[i] == "--link":
             # get install.sh candidat
-            if config["install"]:
+            if "install" in config.keys():
                 print "\n[*] Installation script found: %s" % config["install"]
                 dec = raw_input("Do you like to run it? (Y/n): ")
                 if dec.lower() == "y":
