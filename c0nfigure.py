@@ -21,7 +21,7 @@ uses a simple config file to keep all dotfiles in one place and up-to-date
 
 
 DEBUG = False
-BACKUP = True
+BACKUP = False
 
 """Making a backup by renaming the File from <name> to <name>.backup"""
 def mkBackup(bkFile):
@@ -42,7 +42,7 @@ def symlink(source, dest):
 	except Exception as e:
 
             if e.errno == 17: # file already existent
-                if mkBackup(dest):
+                if BACKUP and mkBackup(dest):
                     symlink(source, dest)
                     return 1
 
@@ -74,6 +74,7 @@ if len(sys.argv) == 1:
 --push           \tUpdates the repository
 --pull           \tRefreshes the files (git pull)
 --verbose, -v    \tSome more output
+--backup, -b     \tMake backup of prev. symlinks
 	"""
 	exit(1)
 
@@ -90,6 +91,8 @@ for i in range(1, len(sys.argv)):
             configName = sys.argv[i+1]
         if sys.argv[i] == "--verbose" or sys.argv[i] == "-v":
             DEBUG = True
+        if sys.argv[i] == "--backup" or sys.argv[i] == "-b":
+            BACKUP = True
 cp = configparser(configName)
 
 pResult = cp.parseConfig()
