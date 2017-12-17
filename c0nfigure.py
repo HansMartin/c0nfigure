@@ -122,14 +122,6 @@ config = cp.config
 gh = github(config)
 
 
-# get install.sh candidat
-if config["install"]:
-    print "\n[*] Installation script found: %s" % config["install"]
-    dec = raw_input("Do you like to run it? (Y/n): ")
-    if dec.lower() == "y":
-        run_install(config["repo_dir"], config["github"], config["install"])
-
-
 
 for i in range(1, len(sys.argv)):
 	if sys.argv[i] == "--push":
@@ -138,6 +130,15 @@ for i in range(1, len(sys.argv)):
 		gh.refresh()
 
         elif sys.argv[i] == "--link":
+            # get install.sh candidat
+            if config["install"]:
+                print "\n[*] Installation script found: %s" % config["install"]
+                dec = raw_input("Do you like to run it? (Y/n): ")
+                if dec.lower() == "y":
+                    run_install(config["repo_dir"], config["github"], config["install"])
+
+
+
             # Symlink making
             pinfo("Making symlinks...")
             makeSymlinks(cp.replacement_rel)
