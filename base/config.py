@@ -4,7 +4,7 @@ class base:
 
     config = {"config_file":os.path.expanduser("~/.c0nfig.conf"), "repo_dir":os.path.expanduser("~/.c0nfigure/repos")}
     # (var_name, isRequired), ...
-    globals = [("github", True), ("repo_dir", False)]
+    globals = [("github", True), ("repo_dir", False), ("install", False)]
 
     def __init__(self):
         pass

@@ -74,7 +74,6 @@ class configparser:
                     raise Exception("Required global not found")
 
 
-
             # 2. parse programs
 
             folders = [key for key in obj.keys() if key not in [x for x, _ in self.globals]]

@@ -12,7 +12,7 @@ class github:
         self.config = config
         self.url = "https://github.com/" + self.config["github"]
         self.cloneThatRepo()
-        
+
 
     def cloneThatRepo(self):
 
@@ -22,7 +22,7 @@ class github:
 
         stdout, stderr = proc.communicate()
 
-        if stderr != "" and "already exists" in stderr: 
+        if stderr != "" and "already exists" in stderr:
             perror("Repository already exists")
 
 
@@ -30,7 +30,7 @@ class github:
     def refresh(self, reponame=""):
 
         pinfo("Getting newest Version...")
-        
+
         if reponame == "":
             reponame = self.config["github"].split("/")[1]
 
@@ -64,7 +64,7 @@ class github:
         stdout, stderr = procAdd.communicate()
 
         # Error checking
-        if stderr != "": 
+        if stderr != "":
             perror(stderr)
 
 
@@ -72,7 +72,7 @@ class github:
 
         stdout, stderr = procCommit.communicate()
 
-        if stderr != "": 
+        if stderr != "":
             perror(stderr)
 
         procPush = Popen(["git", "push"], stdout=PIPE, stderr=PIPE, stdin=PIPE)
@@ -80,7 +80,7 @@ class github:
 
         procPush.wait()
 
-        if stderr != "": 
+        if stderr != "":
             perror(stderr)
 
 

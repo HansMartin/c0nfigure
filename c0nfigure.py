@@ -4,7 +4,7 @@ import sys
 from base.configparser import configparser
 from base.github import github
 from base.config import perror, psuccess, pinfo, base
-
+from subprocess import Popen, PIPE
 
 
 """
@@ -22,6 +22,20 @@ uses a simple config file to keep all dotfiles in one place and up-to-date
 
 DEBUG = False
 BACKUP = False
+
+
+""" Runs the install.sh script if found """
+def run_install(repo_dir, github_dir, script_name):
+
+    base_path = "%s/%s" % (repo_dir, github_dir.split("/")[1])
+    full_path = "%s/%s" % (base_path, script_name)
+
+
+    proc = Popen(["bash", full_path, base_path], stdout=PIPE)
+
+    stdout, stderr = proc.communicate()
+    print stdout
+
 
 """Making a backup by renaming the File from <name> to <name>.backup"""
 def mkBackup(bkFile):
@@ -93,6 +107,8 @@ for i in range(1, len(sys.argv)):
             DEBUG = True
         if sys.argv[i] == "--backup" or sys.argv[i] == "-b":
             BACKUP = True
+
+
 cp = configparser(configName)
 
 pResult = cp.parseConfig()
@@ -105,6 +121,13 @@ if not pResult:
 config = cp.config
 gh = github(config)
 
+
+# get install.sh candidat
+if config["install"]:
+    print "\n[*] Installation script found: %s" % config["install"]
+    dec = raw_input("Do you like to run it? (Y/n): ")
+    if dec.lower() == "y":
+        run_install(config["repo_dir"], config["github"], config["install"])
 
 
 
