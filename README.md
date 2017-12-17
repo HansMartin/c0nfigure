@@ -40,19 +40,22 @@ In the config are some "global" config variables, to adjust the tools settings
 * install
 
 __github__ sets the users github account (Format: username/repository)
+
 __repo_dir__ is a path to a local directory where the repo ist stored
+
 __install__ is a path (relative to the repository) of a shellscript that gets executed before symlinking
 
 
 **Config Path**
 
 The default config path is ~/.c0nfig.conf
+
 Or can use your a config with the Parameter -c <config>
 
 
 ### Installation
 
-_Note_: No dependencies required
+_Note_: Its tested on python2.7 and no dependencies are required
 
 ```bash
 git clone https://github.com/HansMartin/c0nfigure.git
